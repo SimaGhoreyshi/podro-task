@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
+import { useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-function App() {
+import LoginPage from "./pages/Login";
+import OtpPage from "./pages/Otp";
+import HomePage from "./pages/Home";
+
+const App = () => {
+  const isAuthenticated = useSelector((state) => state.auth);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <ToastContainer theme="colored" rtl closeOnClick />
+
+      <Router>
+        <Routes>
+          <Route path="/otp" element={<OtpPage />} />
+          <Route
+            path="/home"
+            element={isAuthenticated ? <HomePage /> : <Navigate to="/" />}
+          />
+          <Route exact path="/" element={<LoginPage />} />
+        </Routes>
+      </Router>
+    </>
   );
-}
+};
 
 export default App;
