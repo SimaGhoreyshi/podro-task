@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import "./home.scss";
+import { SearchIcon } from "../../assets/icons";
+import { toast } from "react-toastify";
 
 const HomePage = () => {
   const [ip, setIp] = useState("");
@@ -17,12 +19,22 @@ const HomePage = () => {
       { method: "GET" }
     )
       .then((res) => res.json())
-      .then((res) => setIpInfo([...ipInfo, res]));
+      .then((res) => {
+        if (res.ip) {
+          res.version = res.ip.includes(".") ? "ipv4" : "ipv6";
+          setIpInfo([...ipInfo, res]);
+        } else {
+          toast.error("آی پی وارد شده معتبر نیست");
+        }
+      })
+      .catch(() => {
+        toast.error("خطای شبکه");
+      });
   };
 
   return (
     <div className="home-page">
-      <form className="ip-search" onSubmit={handleSearch}>
+      <form className="ip-search-form" onSubmit={handleSearch}>
         <p className="title">آی پی مد نظر خود را پیدا کنید</p>
         <p className="description">
           اگر بتوانید آدرس IPv4 یا IPv6 یک کاربر اینترنت را بیابید، می توانید با
@@ -31,7 +43,9 @@ const HomePage = () => {
           "دریافت جزئیات IP" کلیک کنید.
         </p>
         <div className="search-wrapper">
-          <img className="search-icon" />
+          <div className="search-icon-wrapper">
+            <SearchIcon />
+          </div>
           <input
             className="search-input"
             type="text"
@@ -45,7 +59,7 @@ const HomePage = () => {
             type="submit"
             title="دریافت جزئیات IP"
           >
-            search icon
+            <SearchIcon color="white" />
           </button>
         </div>
       </form>
@@ -55,7 +69,9 @@ const HomePage = () => {
             <div className="result-card">
               <span className="result-info">
                 <p className="result-info-title">Ip Address:</p>
-                <p className="result-info-value">{info?.ip}</p>
+                <p className="result-info-value">
+                  {info?.ip} ({info.version})
+                </p>
               </span>
               <span className="result-info">
                 <p className="result-info-title">Country:</p>

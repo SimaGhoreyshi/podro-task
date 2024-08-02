@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 import { setPhone } from "../../store/slices/phoneSlice";
+import { Logo } from "../../assets/icons";
+import "./login.scss";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -28,23 +30,30 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>{/* logo */}</div>
-        <p>به پنل مدیریت تسک پادرو خوش آمدید</p>
-        <p>برای ورود، لطفا شماره موبایل خود را وارد کنید</p>
+    <div className="login-page">
+      <form className="login-form" onSubmit={handleSubmit}>
+        <div className="logo-wrapper">
+          <Logo />
+        </div>
+        <p className="title">به پنل مدیریت تسک پادرو خوش آمدید</p>
+        <p className="description">
+          برای ورود، لطفا شماره موبایل خود را وارد کنید
+        </p>
         <input
+          className="phone-input"
           type="tel"
           placeholder="شماره موبایل"
           value={phone}
           onChange={(e) => setPhoneInput(e.target.value)}
           required
         />
-        <button type="submit">ارسال کد‌ تایید</button>
+        <button className="submit-button" type="submit">
+          ارسال کد‌ تایید
+        </button>
 
-        <span>
-          <p>حساب کاربری ندارید؟</p>
-          <a>ثبت‌نام</a>
+        <span className="new-user-wrapper">
+          <p className="new-user-title">حساب کاربری ندارید؟</p>
+          <a className="new-user-anchor">ثبت‌نام</a>
         </span>
       </form>
     </div>

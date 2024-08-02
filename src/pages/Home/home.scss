@@ -1,6 +1,9 @@
+@import "../../assets/colors.scss";
+
 .home-page {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 906px;
   top: 163px;
   left: 267px;
@@ -8,19 +11,23 @@
   gap: 32px;
   border-radius: 16px;
   border: 1px solid #eaecf066;
-  background: #ffffff;
+  background: $white;
   box-shadow: -5px 9px 23px 0px #cfcfcf14, -21px 35px 41px 0px #cfcfcf17,
     -48px 79px 56px 0px #cfcfcf0d, -85px 141px 66px 0px #cfcfcf03,
     -134px 220px 72px 0px #cfcfcf00;
 
-  .ip-search {
+  .ip-search-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
     .title {
       font-family: IRANSansXFaNum;
       font-size: 20px;
       font-weight: 500;
       line-height: 34px;
       text-align: center;
-      color: #313235;
+      color: $primary-black;
     }
 
     .description {
@@ -28,33 +35,98 @@
       font-size: 16px;
       font-weight: 500;
       text-align: center;
-      color: #7e838f;
+      color: $primary-grey;
+      direction: rtl;
     }
 
     .search-wrapper {
-      .search-icon {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      direction: rtl;
+      background: transparent;
+      border: 1px solid $border;
+      border-radius: 8px;
+      width: 611px;
+      height: 56px;
+
+      &:focus {
+        border-color: $primary-grey;
       }
+
+      .search-icon-wrapper {
+        margin-right: 16px;
+        width: 24px;
+        height: 24px;
+      }
+
       .search-input {
+        margin: 8px;
+        border: none;
+        outline: none;
+        width: 100%;
       }
+
       .search-button {
+        height: 100%;
+        border: none;
+        outline: none;
+        background: linear-gradient(255.96deg, #1043a6 0%, #0c317c 100%);
+        border-radius: 8px 0 0 8px;
+        padding: 16px 24px;
+        cursor: pointer;
       }
     }
   }
 
   .result-wrapper {
+    display: flex;
+    flex-direction: column;
+    row-gap: 32px;
+
     .result-card {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
       width: 806px;
       padding: 16px;
       border-radius: 8px;
+      max-height: 180px;
+      background: $light-gray;
 
       .result-info {
+        display: flex;
+        flex-direction: row;
+        direction: ltr;
+        margin: 6px 0;
+        column-gap: 8px;
+
         .result-info-title {
+          margin: 0;
+          direction: ltr;
+          font-family: IRANSansXFaNum;
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 27.2px;
+          text-align: center;
+          color: $primary-grey;
         }
+
         .result-info-value {
+          margin: 0;
+          direction: ltr;
+          font-family: IRANSansXFaNum;
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 27.2px;
+          text-align: center;
+          color: $primary-black;
         }
       }
 
       .result-map {
+        align-self: flex-end;
         width: 161px;
         height: 147px;
         border-radius: 4px;

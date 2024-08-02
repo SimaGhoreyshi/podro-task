@@ -12,10 +12,23 @@ body {
   width: 100%;
   min-height: 100vh;
   height: fit-content;
-  padding: 16% 0;
   box-sizing: border-box;
 }
 
 #root {
   height: fit-content;
+  padding: 5%;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: IRANSansXFaNum;
+  font-style: normal;
+  font-weight: normal;
+  src: url("./assets/IRANSansXFaNum-Medium.ttf");
+}
+
+* {
+  font-family: IRANSansXFaNum;
+  color: var(--priamry-text);
 }

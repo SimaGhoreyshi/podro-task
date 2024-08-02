@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 
 import { login } from "../../store/slices/authSlice";
 import { convertToPersian } from "../../utils";
+import { LeftArrowIcon, Logo } from "../../assets/icons";
+import "./otp.scss";
 
 const OtpPage = () => {
   const inputRefs = useRef([]);
@@ -61,39 +63,65 @@ const OtpPage = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          {/* logo */}
-          <button onClick={handleEditPhone}>back</button>
+    <div className="otp-page">
+      <form className="otp-form" onSubmit={handleSubmit}>
+        <div className="logo-wrapper">
+          <div className="nothing"></div>
+          <Logo />
+          <button className="back-button" onClick={handleEditPhone}>
+            <LeftArrowIcon />
+          </button>
         </div>
-        <p>کد تایید را وارد کنید</p>
-        <p>کد تایید برای شماره {convertToPersian(phone)} پیامک شد</p>
-        <button onClick={handleEditPhone}>تغییر شماره همراه</button>
-        {otp.map((digit, index) => (
-          <input
-            key={index}
-            type="text"
-            maxLength="1"
-            value={digit}
-            onChange={(e) => handleOtpChange(index, e.target.value)}
-            ref={(el) => (inputRefs.current[index] = el)}
-            required
-          />
-        ))}
-        <span>
-          <p>کد را دریافت نکردید؟</p>
-          <p>
-            {timer > 0 ? (
-              `${convertToPersian(timer)} ثانیه تا ارسال مجدد`
-            ) : (
-              <button onClick={handleResendCode} disabled={timer > 0}>
-                ارسال مجدد
-              </button>
-            )}
-          </p>
+        <p className="title">کد تایید را وارد کنید</p>
+        <p className="description">
+          کد تایید برای شماره {convertToPersian(phone)} پیامک شد
+        </p>
+        <button className="change-phone" onClick={handleEditPhone}>
+          تغییر شماره همراه
+        </button>
+        <div className="otp-inputs-wrapper">
+          {otp.map((digit, index) => (
+            <input
+              className="otp-input"
+              key={index}
+              type="text"
+              maxLength="1"
+              value={digit}
+              onChange={(e) => handleOtpChange(index, e.target.value)}
+              ref={(el) => (inputRefs.current[index] = el)}
+              required
+            />
+          ))}
+        </div>
+        <span className="resend-code-wrapper">
+          <p className="resend-code-title">کد را دریافت نکردید؟</p>
+          <button
+            className="resend-code-button"
+            onClick={handleResendCode}
+            disabled={timer > 0}
+          >
+            ارسال مجدد
+          </button>
         </span>
-        <button type="submit">تایید</button>
+        <button
+          className={`submit-button ${
+            otp.join("").length === 4 && otp.join("") !== "1111"
+              ? "invalid"
+              : ""
+          }`}
+          type="submit"
+        >
+          {otp.join("").length < 4 ? (
+            <p className="resend-code-counter">
+              {`${convertToPersian(timer)} ثانیه تا ارسال مجدد`}
+            </p>
+          ) : (
+            "تایید"
+          )}
+        </button>
+        {otp.join("").length === 4 && otp.join("") !== "1111" ? (
+          <p className="invalid-code">کد وارد شده صحیح نمی باشد</p>
+        ) : null}
       </form>
     </div>
   );
