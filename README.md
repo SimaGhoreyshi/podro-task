@@ -2,7 +2,7 @@
 
 This project is an interview task for Podro.com
 
-## Additional libraries used
+## Additional libraries
 
 ### `react-router-dom` for routing
 
